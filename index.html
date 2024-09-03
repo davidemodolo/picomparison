@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Image Comparison</title>
+</head>
+<body>
+    <h1>Who takes the better pictures?</h1>
+    <h2 id="comparison-label">Comparison 1/X</h2>
+    <div class="image-comparison">
+      <div class="images-container">
+        <img class="before-image" src="" alt="" />
+        <img class="after-image" src="" alt="" />
+        <div class="slider-line"></div>
+        <input type="range" class="slider" min="0" max="100" />
+      </div>
+    </div>
+    <div id = "button-container">
+      <button id="button1" onclick="selectImage1()">First</button>
+      <button id="button2" onclick="selectImage2()">Second</button>
+    </div>
+    <button id="results_button" onclick="showResults()">Results</button>
+    <div id="results"></div>
+</body>
+<script src="script.js"></script>
+</html>
