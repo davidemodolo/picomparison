@@ -1,4 +1,4 @@
-const PICTURES = 6;
+const PICTURES = 1;
 const phones = ["phone1", "phone2", "phone3"];
 
 // create a list with all possible combinations of two phones and pictures
@@ -107,7 +107,7 @@ function selectImage2() {
 }
 
 function showResults() {
-  document.getElementById("results_button").style.display = "none";
+  // document.getElementById("results_button").style.display = "none";
   const resultsDiv = document.getElementById("results");
   const maxPointsPerPhone = PICTURES * (phones.length - 1);
   const sortedPoints = Object.entries(points).sort((a, b) => b[1] - a[1]);
