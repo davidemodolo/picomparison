@@ -31,6 +31,7 @@ function addPoint(phone, picture) {
 }
 
 var phone1, phone2, picture;
+const comparisons = [];
 
 function drawPair() {
   if (combinations.length == 0) {
@@ -48,6 +49,7 @@ function drawPair() {
     [phone1, phone2] = [phone2, phone1];
   }
   console.log(phone1, phone2, picture);
+  comparisons.push([phone1, phone2, picture]);
 }
 
 function loadImages() {
@@ -123,5 +125,32 @@ function showResults() {
         <div class="phone-bar" style="width: ${percentage}%"></div>
     `;
     resultsDiv.appendChild(phoneDiv);
+  }
+
+  for (const [phoneComp1, phoneComp2, picComp] of comparisons) {
+    // create a div with the two images side by side, with the phone name above. The winning image should have the "winning" class and the losing image should have the "losing" class
+    const comparisonDiv = document.createElement("div");
+    comparisonDiv.classList.add("result-comparison");
+
+    const res1 = document.createElement("div");
+    res1.innerHTML += `<h2>${phoneComp1}</h2>`;
+    res1.classList.add("result-result");
+    const img1 = document.createElement("img");
+    img1.src = `pics/${phoneComp1}/${picComp}`;
+    img1.classList.add("winning");
+    img1.alt = phoneComp1;
+    res1.appendChild(img1);
+
+    const res2 = document.createElement("div");
+    res2.innerHTML += `<h2>${phoneComp2}</h2>`;
+    res2.classList.add("result-result");
+    const img2 = document.createElement("img");
+    img2.src = `pics/${phoneComp2}/${picComp}`;
+    img2.classList.add("losing");
+    img2.alt = phoneComp2;
+    res2.appendChild(img2);
+    comparisonDiv.appendChild(res1);
+    comparisonDiv.appendChild(res2);
+    resultsDiv.appendChild(comparisonDiv);
   }
 }
