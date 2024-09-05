@@ -106,12 +106,10 @@ h1 {
 .result-comparison{
     display: flex;
     direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     margin: 20px;
 }
 .result-result{
-  display: flex;
-  direction: column;
   justify-content: space-evenly;
   margin: 20px;
 }
