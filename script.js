@@ -1,6 +1,7 @@
 const PICTURES = 1;
 const phones = ["phone1", "phone2", "phone3"];
 const EXTENSION = ".png";
+
 // create a list with all possible combinations of two phones and pictures
 var combinations = [];
 for (var i = 1; i <= PICTURES; i++) {
@@ -69,9 +70,9 @@ const beforeImage = document.querySelector(".image-comparison .before-image");
 const sliderLine = document.querySelector(".image-comparison .slider-line");
 const sliderIcon = document.querySelector(".image-comparison .slider-icon");
 
+// slider idea from "Live Blogger" on YouTube: https://www.youtube.com/watch?v=zPWVarUHFm8
 slider.addEventListener("input", (e) => {
   let sliderValue = e.target.value + "%";
-
   beforeImage.style.width = sliderValue;
   sliderLine.style.left = sliderValue;
 });
@@ -127,6 +128,11 @@ function showResults() {
     resultsDiv.appendChild(phoneDiv);
   }
 
+  const exportButton = document.createElement("button");
+  exportButton.innerHTML = "Export results";
+  exportButton.onclick = exportResults;
+  resultsDiv.appendChild(exportButton);
+
   for (const [phoneComp1, phoneComp2, picComp] of comparisons) {
     // create a div with the two images side by side, with the phone name above. The winning image should have the "winning" class and the losing image should have the "losing" class
     const comparisonDiv = document.createElement("div");
@@ -157,4 +163,26 @@ function showResults() {
     comparisonDiv.appendChild(res2);
     resultsDiv.appendChild(comparisonDiv);
   }
+}
+
+// csv export with index, picture, phone1, phone2, winner
+function exportResults() {
+  const csv = [];
+  csv.push(["index", "picture", "phone1", "phone2", "winner"]);
+  for (const [
+    index,
+    [phoneComp1, phoneComp2, picComp],
+  ] of comparisons.entries()) {
+    const winner =
+      points[phoneComp1] > points[phoneComp2] ? phoneComp1 : phoneComp2;
+    csv.push([index, picComp, phoneComp1, phoneComp2, winner]);
+  }
+  const csvContent =
+    "data:text/csv;charset=utf-8," + csv.map((e) => e.join(",")).join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "picomparison_results.csv");
+  document.body.appendChild(link); // Required for Firefox
+  link.click();
 }
