@@ -1,3 +1,10 @@
+/*defaul background should be a dirty white*/
+body {
+    background-color: #faf5d0;
+    margin: 0;
+    padding: 0;
+  }
+
 h1 {
     text-align: center;
     font-family: "Poppins", sans-serif;
@@ -113,7 +120,6 @@ h1 {
   justify-content: space-evenly;
   margin: 20px;
 }
-/*any image inside the result-comparison div should be max 400px wide*/
 .result-comparison img{
     max-width: 400px;
     border-radius: 20px;
@@ -121,16 +127,13 @@ h1 {
     object-fit: cover;
     object-position: left;
 }
-/* winning class is an image with green margin */
+
 .winning {
-    border: 5px solid #004719;
+    border: 5px solid #00ff00;
     border-radius: 20px;
   }
 
-/* losing class is an image with red margin */
 .losing {
     border: 5px solid #ff0000;
     border-radius: 20px;
   }
-
- 

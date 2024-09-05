@@ -1,6 +1,14 @@
-# Compare the same picture took with N different devices blindly.
+# Blindly Compare the same pictures took with different devices
 
-# USAGE
+_Have you ever had the need to know which one of your friends' phone takes the better pictures?_
+
+No? Me neither, but my mother had to change her phone and her only requirement was "**It must take GOOD photos**".
+
+So I collected a couple of pictures took with different phones and created this site to blindly compare them.
+
+## How does this work?
+
+# Usage
 
 Inside the JS first few rows change the **number of pictures** per device, give **each device a name** and set the **pictures' extension**.
 
@@ -24,6 +32,10 @@ The folder structure becomes:
 
 ```
 Project Folder
+|   index.html
+|   script.js
+|   styles.css
+|
 └───pics
     ├───iPhone14
     |       1.jpg

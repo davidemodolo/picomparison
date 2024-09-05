@@ -21,18 +21,8 @@ function nextComparison() {
   ).innerHTML = `Comparison ${comparison_count}/${totalComparisons}`;
 }
 
-// dictionary to store the number of points for each image for each phone
-var points = {};
-for (var j = 0; j < phones.length; j++) {
-  points[phones[j]] = 0;
-}
-
-function addPoint(phone, picture) {
-  points[phone]++;
-}
-
 var phone1, phone2, picture;
-const comparisons = [];
+const comparisons = []; // list to store the comparisons with the winner
 
 function drawPair() {
   if (combinations.length == 0) {
@@ -62,6 +52,7 @@ function loadImages() {
   img2.src = `pics/${phone2}/${picture}`;
   img1.alt = phone1;
   img2.alt = phone2;
+  //TODO: create a cheating button that shows the phone names on the images
 }
 
 loadImages();
@@ -84,7 +75,7 @@ function resetSlider() {
 }
 
 function selectImage1() {
-  addPoint(phone1, picture);
+  comparisons[comparisons.length - 1].push(phone1);
   if (combinations.length == 0) {
     document.querySelector(".image-comparison").style.display = "none";
     document.getElementById("button-container").style.display = "none";
@@ -97,7 +88,7 @@ function selectImage1() {
 }
 
 function selectImage2() {
-  addPoint(phone2, picture);
+  comparisons[comparisons.length - 1].push(phone2);
   if (combinations.length == 0) {
     document.querySelector(".image-comparison").style.display = "none";
     document.getElementById("button-container").style.display = "none";
@@ -110,11 +101,24 @@ function selectImage2() {
 }
 
 function showResults() {
-  // document.getElementById("results_button").style.display = "none";
+  //TODO: change the way data is displayed dividing in two columns
+  // 1. with the ranking and the export button
+  // 2. with the comparisons
+
   const resultsDiv = document.getElementById("results");
   const maxPointsPerPhone = PICTURES * (phones.length - 1);
-  const sortedPoints = Object.entries(points).sort((a, b) => b[1] - a[1]);
+
+  var totalPoints = {};
+  for (var j = 0; j < phones.length; j++) {
+    totalPoints[phones[j]] = 0;
+  }
+  for (const [phoneComp1, phoneComp2, picComp, winner] of comparisons) {
+    totalPoints[winner]++;
+  }
+
+  const sortedPoints = Object.entries(totalPoints).sort((a, b) => b[1] - a[1]);
   var i = 0;
+  // TODO: change the bar to something nicer, like a cup icon gold/silver/bronze
   for (const [phone, point] of sortedPoints) {
     const percentage = (point / maxPointsPerPhone) * 100;
     const phoneDiv = document.createElement("div");
@@ -133,7 +137,7 @@ function showResults() {
   exportButton.onclick = exportResults;
   resultsDiv.appendChild(exportButton);
 
-  for (const [phoneComp1, phoneComp2, picComp] of comparisons) {
+  for (const [phoneComp1, phoneComp2, picComp, winner] of comparisons) {
     // create a div with the two images side by side, with the phone name above. The winning image should have the "winning" class and the losing image should have the "losing" class
     const comparisonDiv = document.createElement("div");
     comparisonDiv.classList.add("result-comparison");
@@ -145,9 +149,7 @@ function showResults() {
     res1.appendChild(phone1title);
     const img1 = document.createElement("img");
     img1.src = `pics/${phoneComp1}/${picComp}`;
-    img1.classList.add("winning");
     img1.alt = phoneComp1;
-    res1.appendChild(img1);
 
     const res2 = document.createElement("div");
     res2.classList.add("result-result");
@@ -156,8 +158,16 @@ function showResults() {
     res2.appendChild(phone2title);
     const img2 = document.createElement("img");
     img2.src = `pics/${phoneComp2}/${picComp}`;
-    img2.classList.add("losing");
     img2.alt = phoneComp2;
+
+    if (winner === phoneComp1) {
+      img1.classList.add("winning");
+      img2.classList.add("losing");
+    } else {
+      img1.classList.add("losing");
+      img2.classList.add("winning");
+    }
+    res1.appendChild(img1);
     res2.appendChild(img2);
     comparisonDiv.appendChild(res1);
     comparisonDiv.appendChild(res2);
@@ -171,10 +181,8 @@ function exportResults() {
   csv.push(["index", "picture", "phone1", "phone2", "winner"]);
   for (const [
     index,
-    [phoneComp1, phoneComp2, picComp],
+    [phoneComp1, phoneComp2, picComp, winner],
   ] of comparisons.entries()) {
-    const winner =
-      points[phoneComp1] > points[phoneComp2] ? phoneComp1 : phoneComp2;
     csv.push([index, picComp, phoneComp1, phoneComp2, winner]);
   }
   const csvContent =
