@@ -1,4 +1,4 @@
-# Blindly Compare the same pictures took with different devices
+# Blindly Compare the same pictures taken with different devices
 
 _Have you ever had the need to know which one of your friends' phone takes the better pictures?_
 
