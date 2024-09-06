@@ -63,7 +63,6 @@ Project Folder
 
 TODO:
 
-- [ ] export button of the results in json format
 - [ ] comment code
 - [ ] _better readme with examples (currently in progress)_
-- [ ] add a cheat button
+- [ ] this is so ugly

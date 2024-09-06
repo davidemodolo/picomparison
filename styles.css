@@ -1,115 +1,127 @@
 /*defaul background should be a dirty white*/
 body {
     background-color: #faf5d0;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
   }
 
 h1 {
     text-align: center;
-    font-family: "Poppins", sans-serif;
     text-transform: uppercase;
     padding: 0;
     margin: 0;
     margin-top: 10px;
     color: #004719;
-  }
+}
 
-  h2 {
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    padding: 0;
-    margin: 0;
-    margin-top: 10px;
-    color: #012200;
-  }
-  
-  .image-comparison {
-    max-height: 1000px;
-    max-width: 1000px;
-    margin: 20px auto;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  
-  .image-comparison img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: left;
-  }
-  
-  .image-comparison .images-container {
-    position: relative;
-    display: flex;
-  }
-  
-  .image-comparison .images-container .before-image {
-    position: absolute;
-    top: 0;
-    width: 50%;
-  }
-  
-  .image-comparison .slider {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .image-comparison .slider-line {
-    position: absolute;
-    height: 100%;
-    width: 4px;
-    background: #fff;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+h2 {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  color: #012200;
+}
 
-  #button-container {
+.image-comparison {
+  max-height: 1000px;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.image-comparison img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left;
+}
+
+.image-comparison .images-container {
+  position: relative;
+  display: flex;
+}
+
+.image-comparison .images-container .before-image {
+  position: absolute;
+  top: 0;
+  width: 50%;
+}
+
+.image-comparison .slider {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-comparison .slider-line {
+  position: absolute;
+  height: 100%;
+  width: 4px;
+  background: #fff;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+
+button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #004719;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.phone-name {
+  font-weight: bold;
+}
+
+.phone-points {
+  margin-right: 10px;
+}
+
+.phone-bar {
+  height: 20px;
+  background-color: #9f9f9f;
+  border-radius: 5px;
+  display: flex;
+  margin: 10px;
+}
+
+.phone {
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Add this line to center the image vertically */
+  margin: 20px;
+}
+
+.top-section-results{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     margin: 20px;
-  }
+}
 
-  button{
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #004719;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  
-  .phone-name {
-    font-weight: bold;
-  }
-
-  .phone-points {
-    margin-right: 10px;
-  }
-
-  .phone-bar {
-    height: 20px;
-    background-color: #9f9f9f;
-    border-radius: 5px;
-    display: flex;
-    margin: 10px;
-  }
-
-    .phone1 .phone-bar{
-        background-color: #f0c929;
-    }
-
-    .phone2 .phone-bar{
-        background-color: #c0c0c0;
-    }
-
-    .phone3 .phone-bar{
-        background-color: #cd7f32;
-    }
+.top-section-results button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #004719;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
 .result-comparison{
     display: flex;
     direction: row;

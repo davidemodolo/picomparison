@@ -33,9 +33,9 @@ function drawPair() {
   const pair = combinations[index];
   combinations.splice(index, 1);
   [phone1, phone2, picture] = pair.split("_");
-  // with a probability of 50% swap the two phones
   picture += EXTENSION;
 
+  // with a probability of 50% swap the two phones
   if (Math.random() < 0.5) {
     [phone1, phone2] = [phone2, phone1];
   }
@@ -52,7 +52,20 @@ function loadImages() {
   img2.src = `pics/${phone2}/${picture}`;
   img1.alt = phone1;
   img2.alt = phone2;
-  //TODO: create a cheating button that shows the phone names on the images
+  showLabels(false);
+}
+
+var cheating = false;
+function showLabels(change = true) {
+  console.log(change);
+  if (change) cheating = !cheating;
+  if (cheating) {
+    document.getElementById("button1").innerHTML = phone1;
+    document.getElementById("button2").innerHTML = phone2;
+  } else {
+    document.getElementById("button1").innerHTML = "First";
+    document.getElementById("button2").innerHTML = "Second";
+  }
 }
 
 loadImages();
@@ -78,7 +91,10 @@ function selectImage1() {
   comparisons[comparisons.length - 1].push(phone1);
   if (combinations.length == 0) {
     document.querySelector(".image-comparison").style.display = "none";
-    document.getElementById("button-container").style.display = "none";
+    bcdivs = document.getElementsByClassName("button-container");
+    for (var i = 0; i < bcdivs.length; i++) {
+      bcdivs[i].style.display = "none";
+    }
     document.getElementById("comparison-label").style.display = "none";
     showResults();
   } else {
@@ -91,7 +107,11 @@ function selectImage2() {
   comparisons[comparisons.length - 1].push(phone2);
   if (combinations.length == 0) {
     document.querySelector(".image-comparison").style.display = "none";
-    document.getElementById("button-container").style.display = "none";
+    // get all the divs with button-container and hide them
+    bcdivs = document.getElementsByClassName("button-container");
+    for (var i = 0; i < bcdivs.length; i++) {
+      bcdivs[i].style.display = "none";
+    }
     document.getElementById("comparison-label").style.display = "none";
     showResults();
   } else {
@@ -115,33 +135,52 @@ function showResults() {
   for (const [phoneComp1, phoneComp2, picComp, winner] of comparisons) {
     totalPoints[winner]++;
   }
-
+  const topSectionResults = document.createElement("div");
+  topSectionResults.classList.add("top-section-results");
+  const colors = ["#FFD700", "#C0C0C0", "#CD7F32"];
   const sortedPoints = Object.entries(totalPoints).sort((a, b) => b[1] - a[1]);
   var i = 0;
   // TODO: change the bar to something nicer, like a cup icon gold/silver/bronze
   for (const [phone, point] of sortedPoints) {
-    const percentage = (point / maxPointsPerPhone) * 100;
     const phoneDiv = document.createElement("div");
     i++;
-    phoneDiv.classList.add(`phone${i}`);
-    phoneDiv.innerHTML = `
-      <div class="phone-name"><h2>${phone}</h2></div>
-        <div class="phone-points"><h2>${point}/${maxPointsPerPhone}</h2></div>
-        <div class="phone-bar" style="width: ${percentage}%"></div>
+    phoneDiv.classList.add(`phone`);
+    phoneDiv.innerHTML = `${phone} - ${point}/${maxPointsPerPhone}`;
+    // add the cup.svg
+    const cup = document.createElement("div");
+    cup.innerHTML = `
+    <svg fill="${colors[i - 1]}" height="${45 / i + 10}px" width="${
+      45 / i + 10
+    }px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 489.5 489.5" xml:space="preserve">
+<g>
+	<path d="M370.75,0h-252v40.3h-86.2v66.2c0,47.6,38.6,86.2,86.2,86.2h11.2c10.8,23.8,28.7,43.6,51,56.8
+		c23.4,13.8,37.2,39.6,37.2,66.8v52.3h-30.9c-9.5,0-17.3,7.7-17.3,17.3v22.7h-26.4v80.9h202.3v-80.9h-26.4v-22.7
+		c0-9.5-7.7-17.3-17.3-17.3h-30.9v-52.3c0-27.2,13.8-53,37.2-66.8c22.3-13.1,40.3-33,51-56.8h11.3c47.6,0,86.2-38.6,86.2-86.2V40.4
+		h-86.2V0z M118.75,149.1c-23.5,0-42.6-19.1-42.6-42.6V84h42.6v56.8c0,2.8,0.1,5.5,0.3,8.2h-0.3V149.1z M279.75,412.5v43.3h-70
+		v-43.3H279.75z M252.05,145l-22.1,22l-22-22.1l-21.2-21.4l22.1-22l21.2,21.3l50.7-50.3l22,22.1L252.05,145z M413.35,84v22.5
+		c0,23.5-19.1,42.6-42.6,42.6h-0.3c0.2-2.7,0.3-5.5,0.3-8.2V84H413.35z"/>
+</g>
+</svg>
     `;
-    resultsDiv.appendChild(phoneDiv);
+    phoneDiv.appendChild(cup);
+    topSectionResults.appendChild(phoneDiv);
   }
 
   const exportButton = document.createElement("button");
   exportButton.innerHTML = "Export results";
   exportButton.onclick = exportResults;
-  resultsDiv.appendChild(exportButton);
+  topSectionResults.appendChild(exportButton);
+  resultsDiv.appendChild(topSectionResults);
 
+  // show the comparisons
   for (const [phoneComp1, phoneComp2, picComp, winner] of comparisons) {
-    // create a div with the two images side by side, with the phone name above. The winning image should have the "winning" class and the losing image should have the "losing" class
     const comparisonDiv = document.createElement("div");
     comparisonDiv.classList.add("result-comparison");
-    comparisonDiv.innerHTML = picComp;
+    const picName = document.createElement("h2");
+    picName.innerHTML = picComp;
+    comparisonDiv.appendChild(picName);
+    // comparisonDiv.innerHTML = picComp;
     const res1 = document.createElement("div");
     res1.classList.add("result-result");
     const phone1title = document.createElement("h2");

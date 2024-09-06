@@ -7,6 +7,8 @@
 <body>
     <h1>Who takes the best pictures?</h1>
     <h2 id="comparison-label">Comparison 1/X</h2>
+    <div class="button-container">
+    <button id="cheat" onclick="showLabels()">Cheat</button></div>
     <div class="image-comparison">
       <div class="images-container">
         <img class="before-image" src="" alt="" />
@@ -15,7 +17,7 @@
         <input type="range" class="slider" min="0" max="100" />
       </div>
     </div>
-    <div id = "button-container">
+    <div class = "button-container">
       <button id="button1" onclick="selectImage1()">First</button>
       <button id="button2" onclick="selectImage2()">Second</button>
     </div>
