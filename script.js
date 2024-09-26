@@ -149,10 +149,6 @@ function exportResults() {
 }
 
 function showResults() {
-  //TODO: change the way data is displayed dividing in two columns
-  // Left. with the ranking and the export button
-  // Right. with the comparisons
-
   const resultsDiv = document.getElementById("results");
   const maxPointsPerDevice = PICTURES * (devices.length - 1); // these are the comparison each device appeared
 
@@ -172,11 +168,10 @@ function showResults() {
 
   const sortedPoints = Object.entries(totalPoints).sort((a, b) => b[1] - a[1]);
   var i = 0; //maybe there is a better loop type for this, but I don't know JS very well
-  // TODO: change phones to devices
-  for (const [phone, point] of sortedPoints) {
-    const phoneDiv = document.createElement("div");
-    phoneDiv.classList.add(`phone`);
-    phoneDiv.innerHTML = `${phone} - ${point}/${maxPointsPerDevice}`;
+  for (const [device, point] of sortedPoints) {
+    const deviceDiv = document.createElement("div");
+    deviceDiv.classList.add(`device`);
+    deviceDiv.innerHTML = `${device} - ${point}/${maxPointsPerDevice}`;
     // add the cup.svg
     const cup = document.createElement("div");
     // cup svg
@@ -195,8 +190,8 @@ function showResults() {
 </g>
 </svg>
     `;
-    phoneDiv.appendChild(cup);
-    topSectionResults.appendChild(phoneDiv);
+    deviceDiv.appendChild(cup);
+    topSectionResults.appendChild(deviceDiv);
     i++;
   }
 
@@ -217,18 +212,18 @@ function showResults() {
 
     const res1 = document.createElement("div");
     res1.classList.add("result-result");
-    const phone1title = document.createElement("h2");
-    phone1title.innerHTML = d1;
-    res1.appendChild(phone1title);
+    const device1title = document.createElement("h2");
+    device1title.innerHTML = d1;
+    res1.appendChild(device1title);
     const img1 = document.createElement("img");
     img1.src = `pics/${d1}/${pic}`;
     img1.alt = d1;
 
     const res2 = document.createElement("div");
     res2.classList.add("result-result");
-    const phone2title = document.createElement("h2");
-    phone2title.innerHTML = d2;
-    res2.appendChild(phone2title);
+    const device2title = document.createElement("h2");
+    device2title.innerHTML = d2;
+    res2.appendChild(device2title);
     const img2 = document.createElement("img");
     img2.src = `pics/${d2}/${pic}`;
     img2.alt = d2;

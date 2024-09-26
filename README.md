@@ -63,6 +63,6 @@ Project Folder
 
 TODO:
 
-- [ ] comment code
+- [x] comment code
 - [ ] _better readme with examples (currently in progress)_
 - [ ] this is so ugly

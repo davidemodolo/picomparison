@@ -82,23 +82,7 @@ button{
 }
 
 
-.phone-name {
-  font-weight: bold;
-}
-
-.phone-points {
-  margin-right: 10px;
-}
-
-.phone-bar {
-  height: 20px;
-  background-color: #9f9f9f;
-  border-radius: 5px;
-  display: flex;
-  margin: 10px;
-}
-
-.phone {
+.device {
   font-size: 28px;
   font-weight: bold;
   display: flex;
